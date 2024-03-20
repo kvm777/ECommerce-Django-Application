@@ -31,8 +31,6 @@ Copy code
 
 3. Install dependencies:
 
-pip install -r requirements.txt
-
 markdown
 Copy code
 
