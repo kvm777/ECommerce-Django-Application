@@ -1,0 +1,76 @@
+{% extends 'admin_access/admin_home.html' %}
+{% load static %}
+
+{% block admin_content %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this product?
+            </div>
+            <div class="modal-footer">
+                <a  class="btn btn-primary" data-bs-dismiss="modal">Close</a>
+                <a id="deleteProductBtn" href="{% url 'delete-product' 0 %}" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>this is products contents</h1>
+<a href="{% url 'add-product' %}" class="btn btn-success rounded m-3 ms-0" style="width: 250px;">Add New Product to Store +</a>
+
+<table class="table table-success table-striped text-center">
+    <thead>
+        <th>S.No</th>
+        <th>product</th>
+        <th>Image</th>
+        <th>price</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{product.name}}</td>
+                <td>
+                    <div class="mx-auto" style="width: 100px;"><img src="{{product.imageURL}}" alt="" class="w-100"></div>
+                </td>
+                <td>{{product.price}}</td>
+                <td>
+                        <a href="{% url 'update-product' product.id %}" class="btn btn-outline-dark">Edit</a>
+                        <!-- Button trigger modal -->
+                        <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal"  data-product-id="{{ product.id }}" data-product-name="{{ product.name }}" data-bs-target="#exampleModal">
+                            Delete
+                        </a>
+                        
+                        
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modalTitle = document.getElementById('modalTitle');
+        var deleteProductBtn = document.getElementById('deleteProductBtn');
+
+        var modalTriggerButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+        modalTriggerButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var productName = button.getAttribute('data-product-name');
+                var productId = button.getAttribute('data-product-id');
+                modalTitle.textContent = productName;
+                deleteProductBtn.href = '{% url "delete-product" 0 %}'.replace('0', productId);
+            });
+        });
+    });
+</script>
+
+{% endblock %}

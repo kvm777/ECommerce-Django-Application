@@ -1,0 +1,33 @@
+{% extends 'admin_access/admin_home.html' %}
+{% load static %}
+{% block admin_content %}
+
+<h1>this is users contents</h1>
+
+<table class="table table-success table-striped text-center">
+    <thead>
+        <th>S.No</th>
+        <th>TransactionId</th>
+        <th>Customer</th>
+        <th>Complete/Not</th>
+        
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{order.transaction_id}}</td>
+                <td>{{order.customer.name}}</td>
+                <td>
+                    {% if order.complete %}
+                        <p class="text-primary">completed</p>
+                    {% else %}
+                        <p class="text-danger">not completed</p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+
+
+<form class=" card shadow col-5 mx-auto p-3" method="post" action="/account/login/">
+
+    {% csrf_token %}
+
+    {% for message in messages %}
+      <div class="alert alert-primary" role="alert">
+        <span class="text-center">{{message}}</span>
+      </div>
+    {% endfor %}
+
+
+    <div class="mb-3">
+      <label for="username" class="form-label">username</label>
+      <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp">
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" id="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary form-control mx-auto">Login</button>
+
+    <p class="ms-0 mt-3">Don't have an account yet? <a href="{% url 'account-register' %}">Register here</a> to get started!</p>
+</form>
+
+
+
+{% endblock %}

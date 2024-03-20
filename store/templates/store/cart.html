@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mx-auto col-10">
+    <div class="shadow col-10">
+        <a class="btn btn-outline-warning m-3" href="{% url 'store' %}"> &#8592;  Continue Shopping</a>
+
+        <table class="table">
+            <th><h4><strong>items:{{order.get_cart_quantity}}</strong></h4></th>
+            <th><h4><strong>price:&#x20B9;{{order.get_cart_total|floatformat:2}}</strong></h4></th>
+            <th><a class="btn btn-success float-end" href="{% url 'checkout' %}">Checkout</a></th>
+        </table>
+    </div>
+    
+    <div class="card shadow col-10 mt-3">
+        {% if items|length  %}
+            <div class="cart-item-row">
+                <div style="flex:2;"></div>
+                <div style="flex:2;"><strong>Name</strong></div>
+                <div style="flex:1;"><strong>Price</strong></div>
+                <div style="flex:1;"><strong>Quantity</strong></div>
+                <div style="flex:1;"><strong>Total</strong></div>
+            </div>
+        
+            {% for item in items %}
+
+            <div class="cart-item-row">
+                <div style="flex:2;">
+                    <img class="" style="width:70px;" src="{{item.product.imageURL}}" alt="">
+                </div>
+                <div style="flex:2;"><p>{{item.product.name}}</p></div>
+                <div style="flex:1;"><p>&#x20B9;{{item.product.price|floatformat:2}}</p></div>
+                <div class="d-flex gap-3 align-items-center" style="flex:1;">
+                        <div><p>{{item.quantity}}</p></div>
+                        <div class="d-flex flex-column">
+                            <div data-product={{item.product.id}} data-action="add" class="update-cart" style="cursor: pointer;"><ion-icon name="caret-up-outline"></ion-icon></div>
+                            <div data-product={{item.product.id}} data-action="remove" class="update-cart" style="cursor: pointer;"><ion-icon name="caret-down-outline"></ion-icon></div>
+                        </div>
+                </div>
+                <div style="flex:1;">{{item.get_total|floatformat:2}}</div>
+            </div>
+            <hr>
+            {% endfor %}
+        {% else %}
+            <h1 style="text-align: center; color:red">Cart is Empty</h1>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

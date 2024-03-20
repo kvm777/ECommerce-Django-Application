@@ -1,0 +1,12 @@
+{% extends 'admin_access/admin_home.html' %}
+{% load static %}
+
+{% block admin_content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ productform.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

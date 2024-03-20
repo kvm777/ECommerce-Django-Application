@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="d-flex flex-column justify-content-center col-10">
+    <h1>this is admin access page  </h1>
+
+    <div class="card d-flex flex-row  m-3">
+        <a href="{% url 'admin-users' %}" class="card shadow m-3 p-3 alert alert-primary nav-link">Users</a>
+        <a href="{% url 'admin-products' %}" class="card shadow m-3 p-3 alert alert-warning nav-link">Products</a>
+        <a href="{% url 'admin-orders' %}" class="card shadow m-3 p-3 alert alert-primary nav-link">Orders</a>
+    </div>
+
+    {% block admin_content %}
+    
+    {% endblock %}
+</div>
+
+
+{% endblock %}

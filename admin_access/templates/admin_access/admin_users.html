@@ -1,0 +1,33 @@
+{% extends 'admin_access/admin_home.html' %}
+{% load static %}
+{% block admin_content %}
+
+<h1>this is users contents</h1>
+
+<table class="table table-success table-striped">
+    <thead>
+        <th>S.No</th>
+        <th>User name</th>
+        <th>email</th>
+        <th>SuperUser/Not</th>
+        
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{customer.user.username}}</td>
+                <td>{{customer.user.email}}</td>
+                <td>
+                    {% if customer.user.is_superuser %}
+                        <p class="text-primary">Super User</p>
+                    {% else %}
+                        <p class="text-danger">not a Super User</p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

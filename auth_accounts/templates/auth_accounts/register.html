@@ -1,0 +1,54 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+
+<form class="card shadow col-5 mx-auto p-3 " action="{% url 'account-register' %}" method="post">
+
+    {% csrf_token %}
+
+    
+      {% for message in messages %}
+      <div class="alert alert-primary" role="alert">
+        <span class="text-center">{{message}}</span>
+      </div>
+      {% endfor %}
+
+    
+
+    
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="first_name" class="form-label">first name</label>
+      <input type="text" class="form-control" id="first_name" name="first_name" aria-describedby="emailHelp">
+    </div>
+
+    <div class="mb-3">
+      <label for="last_name" class="form-label">last name</label>
+      <input type="text" class="form-control" id="last_name" name="last_name" aria-describedby="emailHelp">
+    </div>
+
+
+    <div class="mb-3">
+      <label for="username" class="form-label">username</label>
+      <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="password1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="Password1" name="password1">
+    </div>
+    <div class="mb-3">
+      <label for="password2" class="form-label">conform Password</label>
+      <input type="password" class="form-control" id="Password2" name="password2">
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary form-control mx-auto">register</button>
+  </form>
+
+{% endblock %}
