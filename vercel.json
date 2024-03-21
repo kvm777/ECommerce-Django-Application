@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "./ecommerce",
+        "src": "./ecommerce/wsgi.py",
         "use": "@now/python"
       }
     ],
