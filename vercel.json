@@ -1,0 +1,17 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "./ecommerce",
+        "use": "@now/python"
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", 
+      "dest": "ecommerce/wsgi.py" }
+    ],
+    "env": {
+      "DJANGO_SETTINGS_MODULE": "ecommerce.settings"
+    }
+  }
+  
