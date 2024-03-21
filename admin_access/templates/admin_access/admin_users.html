@@ -10,6 +10,7 @@
         <th>User name</th>
         <th>email</th>
         <th>SuperUser/Not</th>
+        <th>Orders</th>
         
     </thead>
     <tbody>
@@ -24,6 +25,9 @@
                     {% else %}
                         <p class="text-danger">not a Super User</p>
                     {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'admin-orders-filtered' customer.id %}" class="btn btn-outline-dark rounded">{{customer.get_order_count}}</a>
                 </td>
             </tr>
         {% endfor %}

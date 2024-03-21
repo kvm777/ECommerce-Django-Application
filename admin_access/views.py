@@ -57,6 +57,14 @@ def deleteProduct(request, product_id):
     return redirect(reverse('admin-products'))
 
 
-def admin_orders(request):
-    orders = Order.objects.all()
-    return render(request, 'admin_access/admin_orders.html', {'orders':orders})
+def admin_orders(request, customer_id=None):
+    customers = Customer.objects.all()
+    if customer_id:
+        orders = Order.objects.filter(customer = customer_id )
+    else:
+        orders = Order.objects.all()
+    return render(request, 'admin_access/admin_orders.html', {'orders':orders, 'customers':customers,})
+
+
+
+

@@ -10,6 +10,12 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
     
+    def get_order_count(self):
+        return self.order_set.count()
+
+    def get_orders(self):
+        return self.order_set.all()
+    
 class Product(models.Model):
     name = models.CharField(max_length = 100, null = True)
     price = models.FloatField()
@@ -73,11 +79,15 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True, blank = True)
     quantity = models.IntegerField(default = 0, null = True, blank = True)
     date_added = models.DateTimeField(auto_now_add = True)
+    
 
     @property
     def get_total(self):
-        total = self.product.price * self.quantity
-        return total
+        if self.product is not None and self.product.price is not None:
+            total = self.product.price * self.quantity
+            return total
+        else:
+            return 0
 
 
 class ShippingAddress(models.Model):

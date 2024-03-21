@@ -2,13 +2,31 @@
 {% load static %}
 {% block admin_content %}
 
-<h1>this is users contents</h1>
+<h1>this is Orders contents</h1>
+
+
+<!-- <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="customer_id">
+    <option selected>All</option>
+    {% for customer in customers %}
+        
+            <option value="{{customer.id}}">
+                <a href="{% url 'admin-orders-filtered' customer.id %}">
+                    {{customer.name}}
+                </a>
+            </option>
+        </a>
+    {% endfor %}
+</select> -->
+
+
 
 <table class="table table-success table-striped text-center">
     <thead>
         <th>S.No</th>
         <th>TransactionId</th>
         <th>Customer</th>
+        <th>CartItems Count</th>
+        <th>Cart Value</th>
         <th>Complete/Not</th>
         
     </thead>
@@ -17,7 +35,9 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{order.transaction_id}}</td>
-                <td>{{order.customer.name}}</td>
+                <td>{{order.customer.user.username}}</td>
+                <td>{{order.get_cart_quantity}}</td>
+                <td>{{order.get_cart_total}}</td>
                 <td>
                     {% if order.complete %}
                         <p class="text-primary">completed</p>
@@ -29,5 +49,14 @@
         {% endfor %}
     </tbody>
 </table>
+
+
+<script>
+    document.getElementById('customerSelect').addEventListener('change', function() {
+        var customerId = this.value;
+        document.getElementById('filterForm').action = "/orders/" + customerId + "/";
+    });
+</script>
+
 
 {% endblock %}
