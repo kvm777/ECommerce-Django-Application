@@ -84,3 +84,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 This project was inspired by the need for a flexible and scalable eCommerce solution using Django. Special thanks to the Django community for their amazing contributions and support.
     
+## Authors
+
+- [@kvm777](https://www.github.com/kvm777)
+
