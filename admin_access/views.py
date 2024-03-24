@@ -60,10 +60,12 @@ def deleteProduct(request, product_id):
 def admin_orders(request, customer_id=None):
     customers = Customer.objects.all()
     if customer_id:
+        selected_customer = Customer.objects.get(id = customer_id)
         orders = Order.objects.filter(customer = customer_id )
     else:
         orders = Order.objects.all()
-    return render(request, 'admin_access/admin_orders.html', {'orders':orders, 'customers':customers,})
+        selected_customer = None
+    return render(request, 'admin_access/admin_orders.html', {'orders':orders, 'customers':customers, 'selected_customer': selected_customer })
 
 
 

@@ -5,18 +5,17 @@
 <h1>this is Orders contents</h1>
 
 
-<!-- <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="customer_id">
-    <option selected>All</option>
+<select class="form-select form-select-lg mb-3" id="customerSelect" aria-label="Large select example" name="customer_id">
+    <option value="{% url 'admin-orders' %}" {% if selected_customer is None %}selected{% endif %}>
+        All Orders
+    </option>
+    
     {% for customer in customers %}
-        
-            <option value="{{customer.id}}">
-                <a href="{% url 'admin-orders-filtered' customer.id %}">
-                    {{customer.name}}
-                </a>
-            </option>
-        </a>
+        <option value="{% url 'admin-orders-filtered' customer.id %}" {% if selected_customer and customer.id == selected_customer.id %}selected{% endif %}>
+            {{ customer.name }}
+        </option>
     {% endfor %}
-</select> -->
+</select>
 
 
 
@@ -52,9 +51,10 @@
 
 
 <script>
+
     document.getElementById('customerSelect').addEventListener('change', function() {
-        var customerId = this.value;
-        document.getElementById('filterForm').action = "/orders/" + customerId + "/";
+        var url = this.value; // Get the value of the selected option which is the URL
+        window.location.href = url; // Redirect to the selected URL
     });
 </script>
 

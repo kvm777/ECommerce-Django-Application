@@ -23,10 +23,41 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-xxta((n3gwm!n^+p@7a)!chs#_27#h+1tu^4xo9a5wweg%)oyv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*", ".vercel.app"]
+ALLOWED_HOSTS = ["*", ".vercel.app", 'localhost', '127.0.0.1',]
 
+
+'''
+to get the LOGIN password code. we need to follow the steps below....
+
+1. open gmail settings -> more settins -> Forwarding and POP/IMAP -> Enable IMAP -> save changes
+2. turn on the 2 step verification 
+3. search app passwords in google account.. -> create app -> and create code -> 
+    copy the code and use it as password..
+
+    mailID --> koradamahesh2000@gmail.com
+    password --> eoolrwwlumzzefaw
+'''
+
+
+# Email HAndlings...
+
+# Configure email backend settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server hostname or IP address
+EMAIL_PORT = 587  # Port number for the SMTP server (587 for TLS, 465 for SSL)
+EMAIL_USE_TLS = True  # Use TLS (Transport Layer Security) encryption
+EMAIL_HOST_USER = 'koradamahesh2000@gmail.com'  # Your SMTP username (if required)
+EMAIL_HOST_PASSWORD = 'eoolrwwlumzzefaw'  # Your SMTP password (if required)
+EMAIL_USE_SSL = False  # Set it to True if you're using SSL instead of TLS
+
+# Default sender email address
+# DEFAULT_FROM_EMAIL = 'koradamahesh2000@gmail.com'
+
+
+# adding this for login management using (email and password) instead of (username and password)
+AUTHENTICATION_BACKENDS = ['auth_accounts.custom_auth_backends.EmailAuthBackend']
 
 # Application definition
 
@@ -37,11 +68,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.staticfiles.finders.FileSystemFinder',
 
     'store',
     'auth_accounts',
     'admin_access',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,6 +153,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR/ 'staticfiles'
 
 STATICFILES_DIRS = [
     BASE_DIR /'static',
