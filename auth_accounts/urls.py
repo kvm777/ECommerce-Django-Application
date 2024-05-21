@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
 # from .utils import verify_email, reset_password
 
@@ -15,4 +15,5 @@ urlpatterns = [
 
     path('login/', account_login, name='account-login'),
     path('logout/', account_logout, name='account-logout'),
+
 ]

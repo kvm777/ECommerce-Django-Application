@@ -59,6 +59,13 @@ EMAIL_USE_SSL = False  # Set it to True if you're using SSL instead of TLS
 # adding this for login management using (email and password) instead of (username and password)
 AUTHENTICATION_BACKENDS = ['auth_accounts.custom_auth_backends.EmailAuthBackend']
 
+# Captcha settings
+CAPTCHA_LENGTH = 6 # Set the length of captcha
+
+# GOOGLE_RECAPTCHA_PUBLIC_KEY = '6Lf7PbQpAAAAAOqV5WM1hZXahVex89RXgjHioQyq'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Lf7PbQpAAAAAElFeNQK2tJY-g4wBxoOzt_o2cU6'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,6 +80,8 @@ INSTALLED_APPS = [
     'store',
     'auth_accounts',
     'admin_access',
+
+    'captcha',
 ]
 
 

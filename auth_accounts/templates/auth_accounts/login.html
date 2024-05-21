@@ -1,32 +1,41 @@
-{% extends 'main.html' %}
-
+{% extends 'main.html' %} 
 {% block content %}
 
-<form class="card shadow col-5 mx-auto p-3" method="post" action="{% url 'account-login' %}">
-    {% csrf_token %}
+<form class="card shadow col-5 mx-auto p-3 mt-3" method="post" action="{% url 'account-login' %}">
 
-    {% for message in messages %}
-        <div class="alert alert-primary" role="alert">
-            <span class="text-center">{{ message }}</span>
-        </div>
-    {% endfor %}
+  {% csrf_token %} {% for message in messages %}
+  <div class="alert alert-primary" role="alert">
+    <span class="text-center">{{ message }}</span>
+  </div>
+  {% endfor %}
 
-    <div class="mb-3">
-        <label for="email_or_username" class="form-label">Username or Email</label>
-        <input type="text" class="form-control" name="email_or_username" id="email_or_username" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  <div class="mb-3">
+    <label for="email_or_username" class="form-label">Username or Email</label>
+    <input type="text" class="form-control" name="email_or_username" id="email_or_username" aria-describedby="emailHelp"/>
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
     </div>
+  </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" id="password">
-        <a class="ms-0 mt-3 text-end form-text text-primary" href="{% url 'forgot_password' %}" > <p class="">Forgot your password?</p>  </a>
-    </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password" id="password" />
+    <a class="ms-0 mt-3 text-end form-text text-primary" href="{% url 'forgot_password' %}">
+      <p class="">Forgot your password?</p>
+    </a>
+  </div>
 
-    <button type="submit" class="btn btn-primary form-control mx-auto">Login</button>
+  <button type="submit" class="btn btn-primary form-control mx-auto">
+    Login
+  </button>
 
-    <p class="ms-0 mt-3">Don't have an account yet? <a href="{% url 'account-register' %}">Register here</a> to get started!</p>
-    
+  <p class="ms-0 mt-3">
+    Don't have an account yet?
+    <a href="{% url 'account-register' %}">Register here</a> to get started!
+  </p>
 </form>
+
+
+
 
 {% endblock %}

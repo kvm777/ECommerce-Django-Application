@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin-access/', include('admin_access.urls')),
 
     path('accounts/', include('django.contrib.auth.urls')),
+
+    path('captcha/', include('captcha.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

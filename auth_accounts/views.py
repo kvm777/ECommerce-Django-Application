@@ -1,10 +1,10 @@
 from base64 import urlsafe_b64decode
 from django.http import HttpResponse
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-
 from django.contrib.auth.tokens import default_token_generator, PasswordResetTokenGenerator
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -12,13 +12,14 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import views as auth_views
+import requests
+import urllib
+import json
 
 from django.contrib.auth.models import User
 from store.models import Customer
 
-# Create your views here.
-
-
+# Create your views here..
 def send_verification_email(request, user_id = None, email_template = None , subject = None, verify_link_type = None):
     try:
         user = User.objects.get(id=user_id)
@@ -126,14 +127,31 @@ def account_register(request):
 #     return render(request, 'auth_accounts/login.html')
 
 
+# reCAPTCHA server-side validation
+def validate_recaptcha(recaptcha_response):
+    # The secret key from your Google reCAPTCHA account
+    secret_key = settings.GOOGLE_RECAPTCHA_SECRET_KEY  # Get it from your reCAPTCHA admin panel
+    # reCAPTCHA endpoint
+    verify_url = "https://www.google.com/recaptcha/api/siteverify"
+    # Send a POST request to verify the reCAPTCHA response
+    data = {
+        'secret': secret_key,
+        'response': recaptcha_response,
+    }
+    response = requests.post(verify_url, data=data)
+    return response.json()  # This should return a JSON response with a 'success' key
+
 
 # account login using email and password
 
 def account_login(request):
+
     if request.method == "POST":
         email_or_username = request.POST.get('email_or_username')
         password = request.POST.get('password')
+        
 
+        # Authentication logic
         if email_or_username and password:
             user = authenticate(request, username=email_or_username, password=password)
             if user is None:
@@ -151,21 +169,11 @@ def account_login(request):
     return render(request, 'auth_accounts/login.html')
 
 
+
 def account_logout(request):
     logout(request)
     return redirect(reverse("store"))
 
-
-
-# def forgot_password(request):
-#     if request.method == 'POST':
-#         form = PasswordResetForm(request.POST)
-#         if form.is_valid():
-#             form.save(request=request)
-#             return render(request, 'auth_accounts/password_reset_done.html')
-#     else:
-#         form = PasswordResetForm()
-#     return render(request, 'auth_accounts/forgot_password.html', {'form': form})
 
 
 def forgot_password(request):
@@ -248,7 +256,6 @@ def reset_password(request, uidb64, token):
         return render(request, 'auth_accounts/password_reset_form.html', {'uidb64': uidb64, 'token': token})
 
 
-    
 
 def dummy_check(request):
     return render(request, 'auth_accounts/password_reset_success.html')

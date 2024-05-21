@@ -6,7 +6,7 @@
     <div class="d-flex flex-start flex-wrap justify-content-evenly ">
 
         {% for product in products %}
-        <div class="product card shadow">
+        <div class="product card shadow border-0">
             <!--  we are adding imageURL property to product model by replacinf product.image.url-->
             <img src="{{product.imageURL}}" alt="product image">
             <div class="product-content">
